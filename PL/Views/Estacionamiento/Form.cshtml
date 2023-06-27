@@ -1,0 +1,156 @@
+﻿@model ML.Usuario
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <center>
+            <h1 style="color:#332042">Registro de Estacionamiento</h1>
+        </center>
+    </div>
+    <div class="row">
+    </div>
+</div>
+
+    
+    <div class="container" style="text-align: center;">
+        
+        <div class="row">
+            
+        @using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Usuario" }))
+        {
+            <div class="col-md-3">
+                <i class="fa-solid fa-car-side"></i>
+                @Html.LabelFor(model => model.Automovil)
+                @Html.DropDownListFor(model => model.Automovil.IdAutomovil, new SelectList(Model.Automovil.Automoviles, "IdAutomovil", "Placa"), "Selecciona tu placa", new { @class = "form-control" , @id="Placa"})
+            </div>
+        }
+        </div>
+            <br><br>
+        
+            
+            <div class="row">
+                <div class="col-md-3">
+                    
+                  
+                    @Html.TextBox("horaEntrada", null, new { id = "horaEntrada", placeholder = "Hora de entrada",@class = "form-control" })
+                </div>
+                <div class="col-md-6">
+                    <button class="btn  btn-lg" style="background-color: #8f7b9e;" onclick="mostrarHoraInicial()" ">Entrar</button>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.TextBox("horaSalida", null, new { id = "horaSalida", placeholder = "Hora de salida",@class = "form-control" })
+                    
+                </div>
+                <div class="col-md-6">
+                    <button class="btn  btn-lg" style="background-color: #8f7b9e;" onclick="mostrarHoraFinal(); calcularEstancia(); ">Salir </button>
+                </div>
+            </div>
+        <br>
+        <br>
+        <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group" >
+                        <span class="input-group-text" id="resultado"> </span>
+                    </div>
+                </div>
+            </div>
+        
+           
+    </div>
+    
+
+
+<script type="text/javascript">
+
+    var seHaClicado = false;
+    function mostrarHoraInicial() 
+    {
+        if (!seHaClicado) 
+        {
+            seHaClicado = true;
+        var fechaActual = new Date();
+        var hora = fechaActual.getHours();
+        var minutos = fechaActual.getMinutes();
+        var segundos = fechaActual.getSeconds();
+
+        hora = (hora < 10) ? "0" + hora : hora;
+        minutos = (minutos < 10) ? "0" + minutos : minutos;
+        segundos = (segundos < 10) ? "0" + segundos : segundos;
+
+        var horaExacta = hora + ":" + minutos + ":" + segundos;
+        document.getElementById("horaEntrada").value = horaExacta;
+         }
+         else 
+         {
+            var placa = document.querySelector("#Placa option:checked").text;
+            alert("Ya no puedes hacer clic nuevamente, ya salio la placa " + placa);
+         }
+    }
+    var seHaClicado2 = false;
+    function mostrarHoraFinal() {
+        if (!seHaClicado2) {
+            seHaClicado2 = true;
+        var fechaActual = new Date();
+        var hora = fechaActual.getHours();
+        var minutos = fechaActual.getMinutes();
+        var segundos = fechaActual.getSeconds();
+
+        hora = (hora < 10) ? "0" + hora : hora;
+        minutos = (minutos < 10) ? "0" + minutos : minutos;
+        segundos = (segundos < 10) ? "0" + segundos : segundos;
+
+        var horaExacta = hora + ":" + minutos + ":" + segundos;
+        document.getElementById("horaSalida").value = horaExacta;
+        }
+        else 
+         {
+            var placa = document.querySelector("#Placa option:checked").text;
+            alert("Ya no puedes hacer clic nuevamente, ya salio la placa " + placa);
+         }
+    }
+
+    function calcularEstancia() {
+       
+        var placa = document.querySelector("#Placa option:checked").text;
+        
+        var horaEntrada = document.getElementById("horaEntrada").value;
+        var horaSalida = document.getElementById("horaSalida").value;
+
+        var entrada = new Date("2023/06/26 " + horaEntrada);
+        var salida = new Date("2023/06/26 " + horaSalida);
+
+        var tiempoEstancia = (salida - entrada) / (1000 * 60 * 60);
+        if (tiempoEstancia < 1) 
+        {
+            costoEstancia = 19;
+
+        }
+        else if(tiempoEstancia ==1){
+            var costoEstancia = tiempoEstancia * 20;
+        }
+        else if(tiempoEstancia >1 && tiempoEstancia <= 4 ){
+            var costoEstancia = (tiempoEstancia * 4)+20 ;
+        }
+        else if(tiempoEstancia > 4 ) {
+            var costo = ((tiempoEstancia * 4) + 20) * 0.5;
+            var costoEstancia = costo + ((tiempoEstancia * 4) + 20);
+        }
+
+        document.getElementById("resultado").innerHTML = "ID de Placa: " + placa + "<br>" +
+            "Hora de Entrada: " + horaEntrada + "<br>" +
+            "Hora de Salida: " + horaSalida + "<br>" +
+            "Tiempo de Estancia: " + tiempoEstancia.toFixed(3) + " horas<br>" +
+            "Costo de Estancia: $" + costoEstancia.toFixed(2);
+    }
+
+
+</script>
+
+        

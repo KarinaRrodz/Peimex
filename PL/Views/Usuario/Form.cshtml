@@ -1,0 +1,87 @@
+﻿@model ML.Usuario
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <center>
+                <h1 style="color:#6EB5FF">Registro de Usuarios</h1>
+            </center>
+        </div>
+        <div class="row">
+        </div>
+    </div>
+    @using (Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Usuario" }))
+    {
+        <div class="row">
+            <div class="col-md-3" style="display: none;">
+                @Html.TextBoxFor(model => model.IdUsuario, new { @class = "hidden form-control", autocomplete = "off", @id = "IdUsuario" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Label("Nombre")
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"></span>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control",  @id = "nombre",placeholder="Nombre(s)"})
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-3">
+                @Html.Label("Apellido")
+                    <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"></span>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-regular fa-user"></i></span>
+                        @Html.TextBoxFor(model => model.Apellido, new { @class = "form-control",  @id = "apellido",placeholder="Primer Apellido"})
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Usuario")
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"></span>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-face-smile"></i></span>
+                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control",  @id = "username",placeholder="Nombre de usuario"})
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-3">
+                @Html.Label("Contraseña")
+                    <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"></span>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
+                        @Html.TextBoxFor(model => model.Contrasena, new { @class = "form-control",  @id = "contrasena",placeholder="Contraseña"})
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <i class="fa-solid fa-car-side"></i>
+            @Html.LabelFor(model => model.Automovil)
+            @Html.DropDownListFor(model => model.Automovil.IdAutomovil, new SelectList(Model.Automovil.Automoviles, "IdAutomovil", "Placa"), "Selecciona tu placa", new { @class = "form-control" })
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-md-2">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Regresar", "GetAll", "Usuario", htmlAttributes: new { @class = "btn btn-success" })
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+

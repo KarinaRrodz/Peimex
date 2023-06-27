@@ -1,0 +1,48 @@
+﻿@model ML.Automovil
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <center>
+                <h1 style="color:#6EB5FF">Registro de Autos</h1>
+            </center>
+        </div>
+        <div class="row">
+        </div>
+    </div>
+    @using (Html.BeginForm("Form", "Automovil", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Automovil" }))
+    {
+        <div class="row">
+            <div class="col-md-3" style="display: none;">
+                @Html.TextBoxFor(model => model.IdAutomovil, new { @class = "hidden form-control", autocomplete = "off", @id = "IdAutomovil" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.Label("Placa")
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"></span>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-capsules"></i></span>
+                        @Html.TextBoxFor(model => model.Placa, new { @class = "form-control",  @id = "placa",placeholder="XXX-XXX-XXX"})
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+            <div class="col-md-2">
+                @Html.ActionLink("Regresar", "GetAll", "Automovil", htmlAttributes: new { @class = "btn btn-success" })
+            </div>
+        </div>
+
+    }
+</div>
+

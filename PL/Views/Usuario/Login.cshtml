@@ -1,0 +1,46 @@
+﻿@model ML.Usuario
+@{
+    Layout = null;
+}
+
+
+<head>
+    <link rel="stylesheet" href="~/css/Logincs.css" />
+</head>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<body>
+    <section class="login">
+        <div class="login_box">
+            <div class="left">
+                
+                <div class="contact">
+                    @using (Html.BeginForm("Login", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                    <form action="">
+                        <h3>Login</h3>
+                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control form-control-lg", @id = "txtUserName", @placeholder= "Username" })
+                        <br />
+                        <br />
+
+                        @Html.TextBoxFor(model => model.Contrasena, new { @class = "form-control form-control-lg", @id = "txtContrasena", @placeholder= "Contraseña" })
+                        @*<input type="text" placeholder="USERNAME">
+                        <input type="text" placeholder="PASSWORD">*@
+                        <button class="submit">Entrar</button>
+                    </form>
+                    }
+                </div>
+               
+            </div>
+            <div class="right">
+                <div class="right-text">
+                    <h2>KARIIINA</h2>
+                    <h5>ESTACIONAMIENTO</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+<div class="row">
+    <div style="float:right;">
+        @Html.ActionLink("Agregar Automovil", "Form", "Automovil", htmlAttributes: new { @class = "btn btn-primary" })
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    @if (Model.Automoviles != null)
+    {
+        <table class="table table-light table-bordered table-responsive table-hover" id="tblAutomovil">
+            <thead>
+                <tr>
+
+                    <td class="table-info text-center" style=" font-weight:bold;">Editar</td>
+                    <td class="d-none">IdAutomovil</td>
+                    <td class="table-info text-center" style=" font-weight:bold;">Placa</td>
+                    <td class="table-info text-center" style=" font-weight:bold;">Eliminar</td>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (ML.Automovil automovil in Model.Automoviles)
+                {
+                    <tr>
+                        <td class="text-center"><a class="btn btn-warning" href="@Url.Action("Form", "Automovil", new { IdAutomovil = automovil.IdAutomovil })"><i class="fa-regular fa-pen-to-square" style="color: red;"></i> </a></td>
+                        <td class="d-none">@automovil.IdAutomovil</td>
+                        <td class="text-center">@automovil.Placa</td>
+                        <td style="text-align: center; vertical-align: middle;"><a class="btn btn-danger" href="@Url.Action("Delete", "Automovil", new { IdAutomovil = automovil.IdAutomovil })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="fa-regular fa-trash-can"></i></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">Ocurrio un error al realizar la consulta </div>
+    }
+</div>
+
